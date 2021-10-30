@@ -10,18 +10,28 @@
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <!-- Vue script-->
     <script src="./scripts/app.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="styles/style.css">
     <title>Vue slider</title>
   </head>
   <body>
     <main id="vue-root">
         <div class="container-fluid slider-container px-0">
-            <div class="row">
-                <div id="slider-main" class="col-9">
-                    <img v-for="(slide,index) in slides" :class="index === 0 ? 'active' : ''" :src="slide.src" :alt="slide.title" >
+            <div class="row mx-0">
+                <div id="slider-main" class="col-9 px-0">
+                    <div class="slide" v-for="(slide,index) in slides">
+                        <img  :class="index === activeIndex ? 'active' : ''" :alt="slide.title" :src="slide.src">
+                        <div class="text-section px-3 pb-3" :class="index === activeIndex ? 'active' : ''">
+                            <h1>{{slide.title}}</h2>
+                            <h3>{{slide.text}}</p>
+                        </div>
+                    </div>
                 </div>
-                <aside id="slider-preview" class="col-3">
-                    <img v-for="(slide,index) in slides" :class="index === 0 ? 'active' : ''" :src="slide.src" :alt="`preview ${slide.title}`" >
+                <aside id="slider-preview" class="col-3 px-0">
+                    <div @click="indexIncrementer(-1)" class="nextSlide shadow"><i class="fas fa-chevron-up fs-2"></i></div>
+                    <img v-for="(slide,index) in slides" @click="setMainImage(index)" :class="index === activeIndex ? 'active' : ''" :src="slide.src" :alt="`preview ${slide.title}`" >
+                    <div @click="indexIncrementer(1)" class="precedentSlide shadow"><i class="fas fa-chevron-down fs-2"></i></div>
                 </div>
             </div>
         </div>
