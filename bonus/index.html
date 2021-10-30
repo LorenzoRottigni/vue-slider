@@ -19,7 +19,7 @@
     <main id="vue-root">
         <div class="container-fluid slider-container px-0">
             <div class="row mx-0">
-                <div id="slider-main" class="col-9 px-0">
+                <div id="slider-main" @mouseover="cursorHandler(true)" @mouseleave="cursorHandler(false)" class="col-9 px-0">
                     <div class="slide" v-for="(slide,index) in slides">
                         <img  :class="index === activeIndex ? 'active' : ''" :alt="slide.title" :src="slide.src">
                         <div class="text-section px-3 pb-3" :class="index === activeIndex ? 'active' : ''">
@@ -29,9 +29,9 @@
                     </div>
                 </div>
                 <aside id="slider-preview" class="col-3 px-0">
-                    <div @click="indexIncrementer(-1)" class="nextSlide shadow"><i class="fas fa-chevron-up fs-2"></i></div>
+                    <div @click="indexIncrementer(-1), scrollDelay(3000)" class="nextSlide shadow"><i class="fas fa-chevron-up fs-2"></i></div>
                     <img v-for="(slide,index) in slides" @click="setMainImage(index)" :class="index === activeIndex ? 'active' : ''" :src="slide.src" :alt="`preview ${slide.title}`" >
-                    <div @click="indexIncrementer(1)" class="precedentSlide shadow"><i class="fas fa-chevron-down fs-2"></i></div>
+                    <div @click="indexIncrementer(1), scrollDelay(3000)" class="precedentSlide shadow"><i class="fas fa-chevron-down fs-2"></i></div>
                 </div>
             </div>
         </div>
