@@ -31,9 +31,15 @@
     <main id="vue-root">
         <div class="container-fluid slider-container px-0">
             <div class="row mx-0">
+                <!-- at mouseHover update js cursor status -->
+                <!-- at mouseLeave update js cursor status -->
                 <div id="slider-main" @mouseover="cursorHandler(true)" @mouseleave="cursorHandler(false)" class="col-9 px-0">
+                    <!-- for each object in slides array -->
                     <div class="slide" v-for="(slide,index) in slides">
+                        <!-- image deafult opacity 0-->
+                        <!-- if the image has the activeIndex set opacity to 1 -->
                         <img  :class="index === activeIndex ? 'active' : ''" :alt="slide.title" :src="slide.src">
+                        <!-- display the selected index text -->
                         <div class="text-section px-3 pb-3" :class="index === activeIndex ? 'active' : ''">
                             <h1>{{slide.title}}</h2>
                             <h3>{{slide.text}}</p>
@@ -41,13 +47,23 @@
                     </div>
                 </div>
                 <aside id="slider-preview" class="col-3 px-0">
+                    <!-- on click decrement current active index and reset current loop timer -->
                     <div @click="indexIncrementer(false), scrollDelay()" class="nextSlide shadow"><i class="fas fa-chevron-up fs-2"></i></div>
+                    <!-- for each object in slides array, on object click update activeIndex and reset current loop timer -->
                     <img v-for="(slide,index) in slides" @click="setMainImage(index), scrollDelay(clockTime)" :class="index === activeIndex ? 'active' : ''" :src="slide.src" :alt="`preview ${slide.title}`" >
+                     <!-- on click increment current active index and reset current loop timer -->
                     <div @click="indexIncrementer(true), scrollDelay()" class="precedentSlide shadow"><i class="fas fa-chevron-down fs-2"></i></div>
                 </div>
             </div>
         </div>
-        <div class="controls rounded shadow"> <input type="checkbox" name="auto-enabler" id="auto-enabler" @change="checkboxHandler()" checked> Change slide every <input type="number" @change="restartClock()" v-model="clockTime" placeholder="3"> Milliseconds</div>
+        <div class="controls rounded shadow"> 
+            <!-- on change toggle slider auto -->
+            <input type="checkbox" name="auto-enabler" id="auto-enabler" @change="checkboxHandler()" checked> 
+            Change slide every 
+            <!-- on change restart autoplayer with new clock time -->
+            <input type="number" @change="restartClock()" v-model="clockTime" placeholder="3"> 
+            Milliseconds
+        </div>
     </main>
     <script src="scripts/header.js"></script>
     <!-- Bootstrap js -->
