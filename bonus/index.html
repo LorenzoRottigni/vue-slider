@@ -41,9 +41,9 @@
                     </div>
                 </div>
                 <aside id="slider-preview" class="col-3 px-0">
-                    <div @click="indexIncrementer(false), scrollDelay(clockTime)" class="nextSlide shadow"><i class="fas fa-chevron-up fs-2"></i></div>
+                    <div @click="indexIncrementer(false), scrollDelay()" class="nextSlide shadow"><i class="fas fa-chevron-up fs-2"></i></div>
                     <img v-for="(slide,index) in slides" @click="setMainImage(index), scrollDelay(clockTime)" :class="index === activeIndex ? 'active' : ''" :src="slide.src" :alt="`preview ${slide.title}`" >
-                    <div @click="indexIncrementer(true), scrollDelay(clockTime)" class="precedentSlide shadow"><i class="fas fa-chevron-down fs-2"></i></div>
+                    <div @click="indexIncrementer(true), scrollDelay()" class="precedentSlide shadow"><i class="fas fa-chevron-down fs-2"></i></div>
                 </div>
             </div>
         </div>
