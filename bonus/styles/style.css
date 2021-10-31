@@ -1,6 +1,38 @@
 
 body{
     background-color: cadetblue;
+    position: relative;
+}
+header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 150;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 1.5s;
+}
+header div{
+    background-color: white;
+}
+header p{
+    white-space: pre-line
+}
+.controls{
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: white;
+    padding: 10px 20px;
+    background-color: rgba(0,0,0,0.3);
+}
+.controls input[type="number"]{
+    width: 80px;
+    text-align: center;
 }
 #slider-main{
     position: relative;

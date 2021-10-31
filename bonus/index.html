@@ -16,6 +16,18 @@
     <title>Vue slider</title>
   </head>
   <body>
+    <header>
+        <div class="p-3 rounded shadow">
+            <p>
+                You can change slide using arrow keys, space bar, buttons or directly clicking on preview.
+                Whenever you manually change the main image from preview, loop time gets reset.
+                Keep cursor on main image to pause execution. 
+            </p>
+            <div class="d-grid gap-2 mt-5">
+                <button class="btn btn-outline-primary" type="button">I understand</button>
+            </div>
+        </div>
+    </header>
     <main id="vue-root">
         <div class="container-fluid slider-container px-0">
             <div class="row mx-0">
@@ -29,14 +41,15 @@
                     </div>
                 </div>
                 <aside id="slider-preview" class="col-3 px-0">
-                    <div @click="indexIncrementer(-1), scrollDelay(3000)" class="nextSlide shadow"><i class="fas fa-chevron-up fs-2"></i></div>
-                    <img v-for="(slide,index) in slides" @click="setMainImage(index)" :class="index === activeIndex ? 'active' : ''" :src="slide.src" :alt="`preview ${slide.title}`" >
-                    <div @click="indexIncrementer(1), scrollDelay(3000)" class="precedentSlide shadow"><i class="fas fa-chevron-down fs-2"></i></div>
+                    <div @click="indexIncrementer(false), scrollDelay(clockTime)" class="nextSlide shadow"><i class="fas fa-chevron-up fs-2"></i></div>
+                    <img v-for="(slide,index) in slides" @click="setMainImage(index), scrollDelay(clockTime)" :class="index === activeIndex ? 'active' : ''" :src="slide.src" :alt="`preview ${slide.title}`" >
+                    <div @click="indexIncrementer(true), scrollDelay(clockTime)" class="precedentSlide shadow"><i class="fas fa-chevron-down fs-2"></i></div>
                 </div>
             </div>
         </div>
+        <div class="controls rounded shadow"> <input type="checkbox" name="auto-enabler" id="auto-enabler" @change="checkboxHandler()" checked> Change slide every <input type="number" @change="restartClock()" v-model="clockTime" placeholder="3"> Milliseconds</div>
     </main>
-
+    <script src="scripts/header.js"></script>
     <!-- Bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 

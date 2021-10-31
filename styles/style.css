@@ -1,6 +1,13 @@
-
 body{
     background-color: cadetblue;
+    position: relative;
+}
+.controls{
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: white;
+    z-index: 99;
 }
 #slider-main{
     position: relative;

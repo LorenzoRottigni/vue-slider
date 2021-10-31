@@ -61,15 +61,17 @@ window.addEventListener('DOMContentLoaded',()=>{
                 }
             ],
             activeIndex : 0,
-            mouseOnContainer : false
+            mouseOnContainer : false,
+            clockTime : "3000",
+            sliderLoop: undefined
         },
         methods : {
             setMainImage(newIndex){
                 this.activeIndex = newIndex
             },
             indexIncrementer(operation){
-                if(operation>0){
-                    if(this.activeIndex === this.slides.length)
+                if(operation){
+                    if(this.activeIndex === ((this.slides.length)-1))
                         this.activeIndex = 0
                     
                     this.activeIndex++
@@ -90,23 +92,36 @@ window.addEventListener('DOMContentLoaded',()=>{
             //on scroll slide click wait 3 extra seconds
             scrollDelay(delay){
                 this.cursorHandler(true)
-                setTimeout(() => this.cursorHandler(false), delay)
+                setTimeout(() => this.cursorHandler(false), parseInt(delay))
             },
             keyboardHandler(){
                 if (event.keyCode == 37 || event.keyCode == 38) {
-                    this.indexIncrementer(-1)
-                    this.scrollDelay(3000)
-                } else if (event.keyCode == 39 || event.keyCode == 40) {
-                    this.indexIncrementer(1)
-                    this.scrollDelay(3000)
+                    this.indexIncrementer(false)
+                    this.scrollDelay(this.clockTime)
+                } else if (event.keyCode == 39 || event.keyCode == 40 || event.keyCode == 32) {
+                    this.indexIncrementer(true)
+                    this.scrollDelay(this.clockTime)
                 }
+            },
+            checkboxHandler(){
+                if(event.target.checked)
+                    this.mouseOnContainer = false
+                else
+                    this.mouseOnContainer = true
+            },
+            startClock(){
+                this.sliderLoop = setInterval(()=> {
+                    if(!this.mouseOnContainer)
+                        this.indexIncrementer(1)
+                }, parseInt(this.clockTime))  
+            },
+            restartClock(){
+                clearInterval(this.sliderLoop);
+                this.startClock()
             }
         },
         mounted(){
-            setInterval(()=> {
-                if(!this.mouseOnContainer)
-                    this.indexIncrementer(1)
-            }, 3000)  
+            this.startClock()
             document.addEventListener("keyup", this.keyboardHandler);
         }
     })
